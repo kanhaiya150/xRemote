@@ -1,5 +1,5 @@
 #!/bin/sh
-#set -xv
+set -xv
 
 echo "Hello, How are you?"
 
