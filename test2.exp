@@ -1,0 +1,20 @@
+#!/usr/bin/expect
+set timeout 5
+
+################# Set variables ###############################
+set server <your server name or IP>
+set password <remote OS user password>
+set username <remote OS user name>
+
+################# Execute remote server command in a automatic way #############################################
+spawn sh -c "ssh -oStrictHostKeyChecking=no -oCheckHostIP=no $username@$server"
+expect "*?assword"
+send "$password\r"
+expect "*?home?"
+send "sudo su - <sudo user>\r"
+expect "*?assword\r"
+send "$password\r"
+expect "*?<sudo user>?*\r"
+send "ps -ef|grep pmon|grep ora|grep -v grep\r"
+expect eof
+################################################################################################################
