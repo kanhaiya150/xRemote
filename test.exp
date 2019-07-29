@@ -2,9 +2,9 @@
 set timeout 5
 
 ################# Get decrypted values of server, user and password at run time ###############################
-set server NGUKSVAMDS287
-set password "[exec /oracle/NRN/script/TEST/Passwd.sh]"
-set username klal2
+set server <your server name or IP>
+set password <remote OS user password>
+set username <remote OS user name>
 
 ################# Execute remote server job ####################################################################
 spawn sh -c "ssh -oStrictHostKeyChecking=no -oCheckHostIP=no $username@$server"
