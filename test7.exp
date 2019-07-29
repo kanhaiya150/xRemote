@@ -1,0 +1,39 @@
+#!/usr/bin/expect
+set timeout 5
+
+################# Set variables ###############################
+set server <your server name or IP>
+set password <remote OS user password>
+set username <remote OS user name>
+
+
+################# Remove Remote server script and logs already exist #########################################################
+spawn sh -c "ssh -oStrictHostKeyChecking=no -oCheckHostIP=no $username@$server rm -rf /tmp/remotejob1.sh /tmp/*xremote.log"
+expect "*?assword"
+send "$password\r"
+expect eof
+
+################# Push the scripts to the Remote server ######################################################################
+spawn sh -c "/opt/soe/local/bin/scp -oStrictHostKeyChecking=no -oCheckHostIP=no -rp remotejob1.sh $username@$server:/tmp"
+expect "*?assword"
+send "$password\r"
+expect eof
+
+################# Execute remote server job ###################################################################################
+spawn sh -c "ssh -oStrictHostKeyChecking=no -oCheckHostIP=no $username@$server"
+expect "*?assword"
+send "$password\r"
+expect "*?home?"
+send "sudo su - oraqi3\r"
+expect "*?assword\r"
+send "$password\r"
+expect "*?oraps3?*\r"
+send "/tmp/remotejob1.sh\r"
+expect eof
+
+################# Bring execution log from remote server #######################################################################
+spawn sh -c "/opt/soe/local/bin/scp -oStrictHostKeyChecking=no -oCheckHostIP=no $username@$server:/tmp/*xremote.log log/"
+expect "*?assword"
+send "$password\r"
+expect eof
+################# End of the Job ####################################################################
