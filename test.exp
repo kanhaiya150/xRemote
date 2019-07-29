@@ -1,12 +1,12 @@
 #!/usr/bin/expect
 set timeout 5
 
-################# Get decrypted values of server, user and password at run time ###############################
+################# Set variables ###############################
 set server <your server name or IP>
 set password <remote OS user password>
 set username <remote OS user name>
 
-################# Execute remote server job ####################################################################
+################# Automated login to the remote server  #######################################################
 spawn sh -c "ssh -oStrictHostKeyChecking=no -oCheckHostIP=no $username@$server"
 expect "*?assword"
 send "$password\r"
