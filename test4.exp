@@ -1,0 +1,23 @@
+#!/usr/bin/expect
+set timeout 1
+
+################# Set variables ###############################
+set server <your server name or IP>
+set password <remote OS user password>
+set username <remote OS user name>
+
+
+################# Execute remote server job ###################################################################################
+spawn sh -c "ssh -oStrictHostKeyChecking=no -oCheckHostIP=no $username@$server"
+expect "*?assword"
+send "$password\r"
+expect "*?home?"
+send "sudo su - <OS user>\r"
+expect "*?assword\r"
+send "$password\r"
+expect "*?<OS user>?*\r"
+send "sqlplus / as sysdba\r"
+expect "SQL>\r"
+send "SELECT NAME FROM V\$DATABASE;\r"
+expect eof
+################################################################################################################
