@@ -1,0 +1,7 @@
+Encrypt input file file1 and generate encrypted data into file2
+
+openssl enc -aes-256-cbc -in file1 -out file2 -pass pass:abc
+
+Decrypt file2
+
+openssl enc -d -aes-256-cbc -in file2 -pass pass:abc
